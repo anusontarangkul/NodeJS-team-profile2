@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 let teamData = [];
 
 
@@ -112,7 +113,42 @@ const getEngineer = () => {
 }
 
 const getIntern = () => {
-    console.log('intern')
+    inquirer
+        .prompt([{
+            type: 'text',
+            name: 'name',
+            message: `Enter the intern's name:`,
+            validate: function (input) {
+                return input ? true : false;
+            }
+        },
+        {
+            type: 'text',
+            name: 'id',
+            message: `Enter the intern's Id:`,
+            validate: function (input) {
+                return (!isNaN(input) && input) ? true : false;
+            }
+        },
+        {
+            type: 'text',
+            name: 'email',
+            message: `Enter the intern's email address:`
+        },
+        {
+            type: 'text',
+            name: 'officeNumber',
+            message: `Enter the intern's github`
+        }
+        ])
+        .then(data => {
+            console.log(data);
+            const { name, id, email, school } = data;
+            let intern = new Intern(name, id, email, school)
+            teamData.push(intern)
+            menu()
+        })
+
 }
 
 getInput()
