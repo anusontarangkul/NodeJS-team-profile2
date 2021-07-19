@@ -45,7 +45,39 @@ const getManager = () => {
             const { name, id, email, officeNumber } = data;
             let manager = new Manager(name, id, email, officeNumber)
             console.log(manager)
+            menu()
         })
+}
+
+const menu = () => {
+    inquirer
+        .prompt({
+            type: 'list',
+            name: 'member',
+            message: 'Who would you like to add to the team?',
+            choices: ['Engineer', 'Intern']
+        })
+        .then(data => {
+            const { member } = data;
+            console.log(member)
+            switch (member) {
+                case 'Engineer':
+                    getEngineer();
+                    break;
+                case 'Intern':
+                    getIntern();
+                    break;
+
+            }
+        })
+}
+
+const getEngineer = () => {
+    console.log('engineer')
+}
+
+const getIntern = () => {
+    console.log('intern')
 }
 
 getInput()
