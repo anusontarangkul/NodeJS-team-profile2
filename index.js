@@ -2,7 +2,11 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const fs = require('fs');
+const htmlTemplate_src = require('./src/html-template');
+const generateHTML_utils = require('./utils/generate.html');
 let teamData = [];
+
 
 
 const getInput = () => {
@@ -57,7 +61,7 @@ const menu = () => {
             type: 'list',
             name: 'member',
             message: 'Who would you like to add to the team?',
-            choices: ['Engineer', 'Intern']
+            choices: ['Engineer', 'Intern', 'No More Team Members']
         })
         .then(data => {
             const { member } = data;
@@ -69,7 +73,10 @@ const menu = () => {
                 case 'Intern':
                     getIntern();
                     break;
-
+                case 'No More Team Members':
+                    const text = htmlTemplate_src()
+                    generateTeam(text);
+                    break;
             }
         })
 }
@@ -149,6 +156,22 @@ const getIntern = () => {
             menu()
         })
 
+}
+
+const generateTeam = (content) => {
+    console.log('generate')
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', content, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve({
+                ok: true,
+                message: 'file created'
+            })
+        })
+    })
 }
 
 getInput()
