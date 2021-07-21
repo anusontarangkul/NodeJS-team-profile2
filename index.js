@@ -4,10 +4,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 const htmlTemplate_src = require('./src/html-template');
-const generateHTML_utils = require('./utils/generate.html');
 let teamData = [];
-
-
 
 const getInput = () => {
     console.log(`Let's create your team!`);
@@ -50,7 +47,13 @@ const getManager = () => {
             console.log(data);
             const { name, id, email, officeNumber } = data;
             let manager = new Manager(name, id, email, officeNumber)
+            console.log('manager added')
             console.log(manager)
+
+            teamData.push(manager);
+            console.log('team')
+            console.log(teamData)
+            console.log(teamData[0].constructor.name)
             menu()
         })
 }
@@ -74,8 +77,7 @@ const menu = () => {
                     getIntern();
                     break;
                 case 'No More Team Members':
-                    const text = htmlTemplate_src()
-                    generateTeam(text);
+                    generateTeam(teamData);
                     break;
             }
         })
@@ -115,6 +117,8 @@ const getEngineer = () => {
             const { name, id, email, github } = data;
             let engineer = new Engineer(name, id, email, github)
             teamData.push(engineer)
+            console.log('team')
+            console.log(teamData)
             menu()
         })
 }
@@ -153,24 +157,24 @@ const getIntern = () => {
             const { name, id, email, school } = data;
             let intern = new Intern(name, id, email, school)
             teamData.push(intern)
+            console.log('team')
+            console.log(teamData)
             menu()
         })
 
 }
 
-const generateTeam = (content) => {
+const generateTeam = array => {
     console.log('generate')
-    return new Promise((resolve, reject) => {
-        fs.writeFile('./dist/index.html', content, err => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve({
-                ok: true,
-                message: 'file created'
-            })
-        })
+    console.log(array)
+    htmlTemplate_src(array)
+    const dataIndex = htmlTemplate_src(array);
+    fs.writeFileSync('./dist/index.html', dataIndex, 'utf-8', err => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('file successfully created');
+        }
     })
 }
 

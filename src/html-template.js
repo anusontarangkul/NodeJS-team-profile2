@@ -1,5 +1,7 @@
-module.exports = () => {
+module.exports = data => {
+
     return `
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +10,7 @@ module.exports = () => {
     <title>Document</title>
 </head>
 <body>
-    <h1>Test</h1>
+    <h1>${data[0].constructor.name}</h1>
 </body>
 </html>   
 `
