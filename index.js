@@ -35,12 +35,19 @@ const getManager = () => {
         {
             type: 'text',
             name: 'email',
-            message: `Enter the manager's email address:`
+            message: `Enter the manager's email address:`,
+            validate: function (input) {
+                let valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)
+                return valid ? true : false
+            }
         },
         {
             type: 'text',
             name: 'officeNumber',
-            message: `Enter the manager's office number`
+            message: `Enter the manager's office number`,
+            validate: function (input) {
+                return (!isNaN(input) && input) ? true : false;
+            }
         }
         ])
         .then(data => {
@@ -104,12 +111,19 @@ const getEngineer = () => {
         {
             type: 'text',
             name: 'email',
-            message: `Enter the engineer's email address:`
+            message: `Enter the engineer's email address:`,
+            validate: function (input) {
+                let valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)
+                return valid ? true : false
+            }
         },
         {
             type: 'text',
-            name: 'officeNumber',
-            message: `Enter the engineer's github`
+            name: 'github',
+            message: `Enter the engineer's github`,
+            validate: function (input) {
+                return input ? true : false;
+            }
         }
         ])
         .then(data => {
@@ -144,12 +158,19 @@ const getIntern = () => {
         {
             type: 'text',
             name: 'email',
-            message: `Enter the intern's email address:`
+            message: `Enter the intern's email address:`,
+            validate: function (input) {
+                let valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)
+                return valid ? true : false
+            }
         },
         {
             type: 'text',
-            name: 'officeNumber',
-            message: `Enter the intern's github`
+            name: 'school',
+            message: `Enter the intern's school:`,
+            validate: function (input) {
+                return input ? true : false;
+            }
         }
         ])
         .then(data => {
