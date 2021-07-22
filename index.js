@@ -44,7 +44,7 @@ const getManager = () => {
         {
             type: 'text',
             name: 'officeNumber',
-            message: `Enter the manager's office number`,
+            message: `Enter the manager's office number:`,
             validate: function (input) {
                 return (!isNaN(input) && input) ? true : false;
             }
@@ -120,7 +120,7 @@ const getEngineer = () => {
         {
             type: 'text',
             name: 'github',
-            message: `Enter the engineer's github`,
+            message: `Enter the engineer's github:`,
             validate: function (input) {
                 return input ? true : false;
             }
